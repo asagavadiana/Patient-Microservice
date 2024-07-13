@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Patients</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f2e6ff; /* Фиолетовый пастельный цвет */
+    }
+    h1 {
+      color: #6a0dad; /* Темно-фиолетовый пастельный цвет */
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin-top: 20px;
+    }
+    th, td {
+      border: 1px solid #6a0dad; /* Темно-фиолетовый пастельный цвет */
+      padding: 8px;
+      text-align: left;
+    }
+    th {
+      background-color: #bf94e4; /* Светло-фиолетовый пастельный цвет */
+      color: #fff; /* Белый цвет текста */
+    }
+    tr:nth-child(even) {
+      background-color: #e6ccff; /* Еще светлее фиолетовый пастельный цвет */
+    }
+    a {
+      color: #6a0dad; /* Темно-фиолетовый пастельный цвет */
+      text-decoration: none;
+      margin-right: 10px;
+    }
+  </style>
+</head>
+<body>
+<h1>Patients</h1>
+<a th:href="@{/web/patients/add}">Add New Patient</a>
+<table>
+  <thead>
+  <tr>
+    <th>First Name</th>
+    <th>Last Name</th>
+    <th>Date of Birth</th>
+    <th>Contact Number</th>
+    <th>Email Address</th>
+    <th>Gender</th>
+    <th>Actions</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="patient : ${patients}">
+    <td th:text="${patient.firstName}">First Name</td>
+    <td th:text="${patient.lastName}">Last Name</td>
+    <td th:text="${#dates.format(patient.dateOfBirth, 'yyyy-MM-dd')}">Date of Birth</td>
+    <td th:text="${patient.contactNumber}">Contact Number</td>
+    <td th:text="${patient.emailAddress}">Email Address</td>
+    <td th:text="${patient.gender}">Gender</td>
+    <td>
+      <a th:href="@{/web/patients/edit/{id}(id=${patient.id})}">Edit</a>
+      <a th:href="@{/web/patients/delete/{id}(id=${patient.id})}">Delete</a>
+    </td>
+  </tr>
+  </tbody>
+</table>
+</body>
+</html>

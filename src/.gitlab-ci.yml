@@ -1,0 +1,23 @@
+stages:
+  - build
+  - test
+
+variables:
+  DOCKER_HOST: tcp://docker:2375/
+
+services:
+  - docker:dind
+
+build:
+  stage: build
+  script:
+    - docker build -t my-service .
+  artifacts:
+    paths:
+      - my-service-image.tar
+
+test:
+  stage: test
+  script:
+    - docker load -i my-service-image.tar
+    - docker run my-service npm test
